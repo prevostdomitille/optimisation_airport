@@ -3,6 +3,7 @@ from glutton_simple_from_door import glutton_simple_from_door
 from glutton_simple_optim import glutton_simple_optim
 from glutton_simple_from_plane import glutton_simple_from_plane
 
+
 def make_matrices(size, f):
     distances = []
     for i in range(size):

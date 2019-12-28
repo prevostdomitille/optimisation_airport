@@ -79,7 +79,7 @@ def glutton_allocation(list_distances, list_junctions_load, size):
 
 
 def glutton_by_pairs(size, distances, junctions):
-    test = [[0, 100, 6], [60, 0, 9], [4, 1, 0]]
+    test = [[0, 100, 6], [60, 0, 8], [4, 2, 0]]
     test_doors = [[0, 10, 12], [10, 0, 5], [12, 5, 0]]
     list_junctions_load = order_junctions(test, 3)
     list_distances = order_doors(test_doors, 3)
