@@ -28,7 +28,6 @@ def glutton_simple_allocation(distances, junctions, size):
                     plane_retained = plane_number
         planes_allocated[plane_retained] = 1
         total_score = total_score + best_option
-    print(total_score)
     return list_plane_by_door
 
 

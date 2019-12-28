@@ -30,9 +30,9 @@ def order_junctions(junctions, size):
         for j in range(i + 1, size):
             sum_transit = junctions[i][j] + junctions[j][i]
             list_junctions_load.append((i, j, sum_transit,  priority_between_planes[i], priority_between_planes[j]))
-    list_junctions_load.sort(key=lambda val: val[4], reverse=True)
-    list_junctions_load.sort(key=lambda val: val[3], reverse=True)
-    list_junctions_load.sort(key=lambda val: val[2], reverse=True)
+    list_junctions_load.sort(key=lambda val: val[4])
+    list_junctions_load.sort(key=lambda val: val[3])
+    list_junctions_load.sort(key=lambda val: val[2])
     return list_junctions_load
 
 
@@ -74,14 +74,11 @@ def glutton_allocation(list_distances, list_junctions_load, size):
                 if plane_by_door[j] == -1:
                     plane_by_door[j] = i
                     planes_allocated[i] = 1
-    print(plane_by_door)
     return plane_by_door
 
 
 def glutton_by_pairs(size, distances, junctions):
-    test = [[0, 100, 6], [60, 0, 8], [4, 2, 0]]
-    test_doors = [[0, 10, 12], [10, 0, 5], [12, 5, 0]]
-    list_junctions_load = order_junctions(test, 3)
-    list_distances = order_doors(test_doors, 3)
-    solution = glutton_allocation(list_distances, list_junctions_load, 3)
+    list_junctions_load = order_junctions(junctions, size)
+    list_distances = order_doors(distances, size)
+    solution = glutton_allocation(list_distances, list_junctions_load, size)
     return solution

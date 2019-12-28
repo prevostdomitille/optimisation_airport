@@ -30,7 +30,6 @@ def glutton_simple_optim_allocation(doors, distances, junctions, size):
     total_score = 0
     for iterator in range(1, size):
         door_number = doors[iterator][1]
-        print(globals())
         best_option = MAX
         plane_retained = 0
         for plane_number in range(1, size):
@@ -43,13 +42,11 @@ def glutton_simple_optim_allocation(doors, distances, junctions, size):
         planes_allocated[plane_retained] = 1
         if best_option != MAX:
             total_score = total_score + best_option
-    print(total_score)
     return list_plane_by_door
 
 
 def glutton_simple_optim(size, distances, junctions):
     list_doors = create_sorted_dict(excentricity_door(distances, size), size)
     list_planes = create_sorted_dict(number_of_passengers_by_plane(junctions, size), size)
-    print(list_doors)
     solution = glutton_simple_optim_allocation(list_doors, distances, junctions, size)
     return solution
