@@ -40,8 +40,6 @@ def glutton_simple_optim_allocation(doors, distances, junctions, size):
                     plane_retained = plane_number
         list_plane_by_door[door_number] = plane_retained
         planes_allocated[plane_retained] = 1
-        if best_option != MAX:
-            total_score = total_score + best_option
     return list_plane_by_door
 
 

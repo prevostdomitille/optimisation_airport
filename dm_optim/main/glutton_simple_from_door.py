@@ -1,6 +1,5 @@
 MAX = 2000000000
 
-
 def optimality(junctions, door_number, plane_number, list_plane_by_door, distances, size):
     score = 0
     for door_iterator in range(door_number, size):
