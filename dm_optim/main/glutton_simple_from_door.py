@@ -1,3 +1,5 @@
+MAX = 2000000000
+
 def optimality(junctions, door_number, plane_number, list_plane_by_door, distances, size):
     score = 0
     for door_iterator in range(door_number, size):
@@ -15,7 +17,7 @@ def glutton_simple_allocation(distances, junctions, size):
     total_score = 0
 
     for door_number in range(1, size):
-        best_option = 200000000
+        best_option = MAX
         plane_retained = 0
         for plane_number in range(1, size):
             if planes_allocated[plane_number] != 1:
