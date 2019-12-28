@@ -30,9 +30,9 @@ def order_junctions(junctions, size):
         for j in range(i + 1, size):
             sum_transit = junctions[i][j] + junctions[j][i]
             list_junctions_load.append((i, j, sum_transit,  priority_between_planes[i], priority_between_planes[j]))
-    list_junctions_load.sort(key=lambda val: val[4])
-    list_junctions_load.sort(key=lambda val: val[3])
-    list_junctions_load.sort(key=lambda val: val[2])
+    list_junctions_load.sort(key=lambda val: val[4], reverse=True)
+    list_junctions_load.sort(key=lambda val: val[3], reverse=True)
+    list_junctions_load.sort(key=lambda val: val[2], reverse=True)
     return list_junctions_load
 
 
@@ -49,20 +49,20 @@ def order_doors(distances, size):
 
 
 def glutton_allocation(list_distances, list_junctions_load, size):
-    plane_by_door = [-1] * size  # for each door, the number of the plane that uses it
+    mapping_plane_door = [-1] * size  # for each door, the number of the plane that uses it
     planes_allocated = [-1] * size  # for each plane, 1 if it is allocated, -1 elsewhere
     for junction in list_junctions_load:
         # none of the two planes is allocated
         if planes_allocated[junction[0]] == -1 and planes_allocated[junction[1]] == -1:
             i = 0
             while i < len(list_distances):
-                if plane_by_door[list_distances[i][0]] != -1:
+                if mapping_plane_door[list_distances[i][0]] != -1:
                     list_distances.pop(i)
-                elif plane_by_door[list_distances[i][1]] != -1:
+                elif mapping_plane_door[list_distances[i][1]] != -1:
                     list_distances.pop(i)
                 else:
-                    plane_by_door[list_distances[i][0]] = junction[0]
-                    plane_by_door[list_distances[i][1]] = junction[1]
+                    mapping_plane_door[list_distances[i][0]] = junction[0]
+                    mapping_plane_door[list_distances[i][1]] = junction[1]
                     planes_allocated[junction[0]] = 1
                     planes_allocated[junction[1]] = 1
                     break
@@ -70,11 +70,11 @@ def glutton_allocation(list_distances, list_junctions_load, size):
     # allocate the last planes if some remain
     for i in range(len(planes_allocated)):
         if planes_allocated[i] == -1:
-            for j in range(len(plane_by_door)):
-                if plane_by_door[j] == -1:
-                    plane_by_door[j] = i
+            for j in range(len(mapping_plane_door)):
+                if mapping_plane_door[j] == -1:
+                    mapping_plane_door[j] = i
                     planes_allocated[i] = 1
-    return plane_by_door
+    return mapping_plane_door
 
 
 def glutton_by_pairs(size, distances, junctions):
